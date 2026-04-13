@@ -3,9 +3,7 @@ var Promise = require('bluebird');
 var directory = require('./directory');
 var Stream = require('stream');
 
-// Backwards compatibility for node versions < 8
-if (!Stream.Writable || !Stream.Writable.prototype.destroy)
-  Stream = require('readable-stream');
+
 
 module.exports = {
   buffer: function(buffer, options) {

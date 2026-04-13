@@ -1,9 +1,7 @@
 var Stream = require('stream');
 var util = require('util');
 
-// Backwards compatibility for node versions < 8
-if (!Stream.Writable || !Stream.Writable.prototype.destroy)
-  Stream = require('readable-stream');
+
 
 function NoopStream() {
   if (!(this instanceof NoopStream)) {

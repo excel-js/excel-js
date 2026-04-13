@@ -8,9 +8,7 @@ var parseExtraField = require('../parseExtraField');
 var Buffer = require('../Buffer');
 var parseDateTime = require('../parseDateTime');
 
-// Backwards compatibility for node versions < 8
-if (!Stream.Writable || !Stream.Writable.prototype.destroy)
-  Stream = require('readable-stream');
+
 
 module.exports = function unzip(source,offset,_password, directoryVars) {
   var file = PullStream(),

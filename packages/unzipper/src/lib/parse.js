@@ -10,9 +10,7 @@ var parseExtraField = require('./parseExtraField');
 var Buffer = require('./Buffer');
 var parseDateTime = require('./parseDateTime');
 
-// Backwards compatibility for node versions < 8
-if (!Stream.Writable || !Stream.Writable.prototype.destroy)
-  Stream = require('readable-stream');
+
 
 var endDirectorySignature = Buffer.alloc(4);
 endDirectorySignature.writeUInt32LE(0x06054b50, 0);

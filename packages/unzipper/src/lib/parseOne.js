@@ -3,9 +3,7 @@ var Parse = require('./parse');
 var duplexer2 = require('duplexer2');
 var BufferStream = require('./BufferStream');
 
-// Backwards compatibility for node versions < 8
-if (!Stream.Writable || !Stream.Writable.prototype.destroy)
-  Stream = require('readable-stream');
+
 
 function parseOne(match,opts) {
   var inStream = Stream.PassThrough({objectMode:true});

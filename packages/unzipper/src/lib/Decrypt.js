@@ -1,9 +1,7 @@
 var bigInt = require('big-integer');
 var Stream = require('stream');
 
-// Backwards compatibility for node versions < 8
-if (!Stream.Writable || !Stream.Writable.prototype.destroy)
-  Stream = require('readable-stream');
+
 
 var table;
 
