@@ -78,7 +78,5 @@ vending.isRegisteredFormat = function (format) {
 };
 
 vending.registerFormat('zip', require('./lib/plugins/zip'));
-vending.registerFormat('tar', require('./lib/plugins/tar'));
-vending.registerFormat('json', require('./lib/plugins/json'));
 
 module.exports = vending;
