@@ -1,0 +1,42 @@
+{
+  "name": "@excel.js/unzipper",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/excel-js/excel-js.git",
+    "directory": "packages/unzipper"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.cjs",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "bun test --reporter dot",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.17",
+    "binary": "~0.3.0",
+    "bluebird": "~3.4.1",
+    "buffer-indexof-polyfill": "~1.0.0",
+    "duplexer2": "~0.1.4",
+    "fstream": "^1.0.12",
+    "graceful-fs": "^4.2.2",
+    "listenercount": "~1.0.1",
+    "readable-stream": "~2.3.6",
+    "setimmediate": "~1.0.4"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/index.cjs"
+}
