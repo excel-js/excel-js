@@ -1,7 +1,7 @@
 var fs = require('fs');
 var async = require('async');
 var path = require('path');
-var util = require('archiver-utils');
+var util = require('../archiver-utils/index.js');
 
 var inherits = require('util').inherits;
 var ArchiverError = require('./error');
