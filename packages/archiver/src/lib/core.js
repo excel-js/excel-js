@@ -13,7 +13,7 @@ var util = require('archiver-utils');
 
 var inherits = require('util').inherits;
 var ArchiverError = require('./error');
-var Transform = require('readable-stream').Transform;
+var Transform = require('node:stream').Transform;
 
 var win32 = process.platform === 'win32';
 
