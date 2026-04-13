@@ -5,7 +5,6 @@ var Stream = require('stream');
 var binary = require('binary');
 var zlib = require('zlib');
 var parseExtraField = require('../parseExtraField');
-var Buffer = require('../Buffer');
 var parseDateTime = require('../parseDateTime');
 
 

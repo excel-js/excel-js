@@ -1,6 +1,5 @@
 var Promise = require('bluebird');
 var Stream = require('stream');
-var Buffer = require('./Buffer');
 
 
 

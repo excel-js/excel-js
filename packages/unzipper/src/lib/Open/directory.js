@@ -4,7 +4,6 @@ var unzip = require('./unzip');
 var Promise = require('bluebird');
 var BufferStream = require('../BufferStream');
 var parseExtraField = require('../parseExtraField');
-var Buffer = require('../Buffer');
 var path = require('path');
 var Writer = require('fstream').Writer;
 var parseDateTime = require('../parseDateTime');

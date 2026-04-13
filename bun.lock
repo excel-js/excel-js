@@ -14,7 +14,7 @@
     },
     "packages/unzipper": {
       "name": "@excel.js/unzipper",
-      "version": "0.0.0",
+      "version": "0.0.1",
       "dependencies": {
         "big-integer": "^1.6.17",
         "binary": "~0.3.0",

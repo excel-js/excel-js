@@ -7,7 +7,6 @@ var PullStream = require('./PullStream');
 var NoopStream = require('./NoopStream');
 var BufferStream = require('./BufferStream');
 var parseExtraField = require('./parseExtraField');
-var Buffer = require('./Buffer');
 var parseDateTime = require('./parseDateTime');
 
 
