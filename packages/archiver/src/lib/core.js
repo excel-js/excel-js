@@ -1,12 +1,4 @@
-/**
- * Archiver Core
- *
- * @ignore
- * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
- * @copyright (c) 2012-2014 Chris Talkington, contributors.
- */
 var fs = require('fs');
-var glob = require('readdir-glob');
 var async = require('async');
 var path = require('path');
 var util = require('archiver-utils');
@@ -594,97 +586,6 @@ Archiver.prototype.append = function(source, data) {
 };
 
 /**
- * Appends a directory and its files, recursively, given its dirpath.
- *
- * @param  {String} dirpath The source directory path.
- * @param  {String} destpath The destination path within the archive.
- * @param  {(EntryData|Function)} data See also [ZipEntryData]{@link ZipEntryData} and
- * [TarEntryData]{@link TarEntryData}.
- * @return {this}
- */
-Archiver.prototype.directory = function(dirpath, destpath, data) {
-  if (this._state.finalize || this._state.aborted) {
-    this.emit('error', new ArchiverError('QUEUECLOSED'));
-    return this;
-  }
-
-  if (typeof dirpath !== 'string' || dirpath.length === 0) {
-    this.emit('error', new ArchiverError('DIRECTORYDIRPATHREQUIRED'));
-    return this;
-  }
-
-  this._pending++;
-
-  if (destpath === false) {
-    destpath = '';
-  } else if (typeof destpath !== 'string'){
-    destpath = dirpath;
-  }
-
-  var dataFunction = false;
-  if (typeof data === 'function') {
-    dataFunction = data;
-    data = {};
-  } else if (typeof data !== 'object') {
-    data = {};
-  }
-
-  var globOptions = {
-    stat: true,
-    dot: true
-  };
-
-  function onGlobEnd() {
-    this._pending--;
-    this._maybeFinalize();
-  }
-
-  function onGlobError(err) {
-    this.emit('error', err);
-  }
-
-  function onGlobMatch(match){
-    globber.pause();
-
-    var ignoreMatch = false;
-    var entryData = Object.assign({}, data);
-    entryData.name = match.relative;
-    entryData.prefix = destpath;
-    entryData.stats = match.stat;
-    entryData.callback = globber.resume.bind(globber);
-
-    try {
-      if (dataFunction) {
-        entryData = dataFunction(entryData);
-
-        if (entryData === false) {
-          ignoreMatch = true;
-        } else if (typeof entryData !== 'object') {
-          throw new ArchiverError('DIRECTORYFUNCTIONINVALIDDATA', { dirpath: dirpath });
-        }
-      }
-    } catch(e) {
-      this.emit('error', e);
-      return;
-    }
-
-    if (ignoreMatch) {
-      globber.resume();
-      return;
-    }
-
-    this._append(match.absolute, entryData);
-  }
-
-  var globber = glob(dirpath, globOptions);
-  globber.on('error', onGlobError.bind(this));
-  globber.on('match', onGlobMatch.bind(this));
-  globber.on('end', onGlobEnd.bind(this));
-
-  return this;
-};
-
-/**
  * Appends a file given its filepath using a
  * [lazystream]{@link https://github.com/jpommerening/node-lazystream} wrapper to
  * prevent issues with open file limits.
@@ -709,50 +610,6 @@ Archiver.prototype.file = function(filepath, data) {
   }
 
   this._append(filepath, data);
-
-  return this;
-};
-
-/**
- * Appends multiple files that match a glob pattern.
- *
- * @param  {String} pattern The [glob pattern]{@link https://github.com/isaacs/minimatch} to match.
- * @param  {Object} options See [node-readdir-glob]{@link https://github.com/yqnn/node-readdir-glob#options}.
- * @param  {EntryData} data See also [ZipEntryData]{@link ZipEntryData} and
- * [TarEntryData]{@link TarEntryData}.
- * @return {this}
- */
-Archiver.prototype.glob = function(pattern, options, data) {
-  this._pending++;
-
-  options = util.defaults(options, {
-    stat: true,
-    pattern: pattern
-  });
-
-  function onGlobEnd() {
-    this._pending--;
-    this._maybeFinalize();
-  }
-
-  function onGlobError(err) {
-    this.emit('error', err);
-  }
-
-  function onGlobMatch(match){
-    globber.pause();
-    var entryData = Object.assign({}, data);
-    entryData.callback = globber.resume.bind(globber);
-    entryData.stats = match.stat;
-    entryData.name = match.relative;
-
-    this._append(match.absolute, entryData);
-  }
-
-  var globber = glob(options.cwd || '.', options);
-  globber.on('error', onGlobError.bind(this));
-  globber.on('match', onGlobMatch.bind(this));
-  globber.on('end', onGlobEnd.bind(this));
 
   return this;
 };
@@ -916,59 +773,3 @@ Archiver.prototype.use = function(plugin) {
 };
 
 module.exports = Archiver;
-
-/**
- * @typedef {Object} CoreOptions
- * @global
- * @property {Number} [statConcurrency=4] Sets the number of workers used to
- * process the internal fs stat queue.
- */
-
-/**
- * @typedef {Object} TransformOptions
- * @property {Boolean} [allowHalfOpen=true] If set to false, then the stream
- * will automatically end the readable side when the writable side ends and vice
- * versa.
- * @property {Boolean} [readableObjectMode=false] Sets objectMode for readable
- * side of the stream. Has no effect if objectMode is true.
- * @property {Boolean} [writableObjectMode=false] Sets objectMode for writable
- * side of the stream. Has no effect if objectMode is true.
- * @property {Boolean} [decodeStrings=true] Whether or not to decode strings
- * into Buffers before passing them to _write(). `Writable`
- * @property {String} [encoding=NULL] If specified, then buffers will be decoded
- * to strings using the specified encoding. `Readable`
- * @property {Number} [highWaterMark=16kb] The maximum number of bytes to store
- * in the internal buffer before ceasing to read from the underlying resource.
- * `Readable` `Writable`
- * @property {Boolean} [objectMode=false] Whether this stream should behave as a
- * stream of objects. Meaning that stream.read(n) returns a single value instead
- * of a Buffer of size n. `Readable` `Writable`
- */
-
-/**
- * @typedef {Object} EntryData
- * @property {String} name Sets the entry name including internal path.
- * @property {(String|Date)} [date=NOW()] Sets the entry date.
- * @property {Number} [mode=D:0755/F:0644] Sets the entry permissions.
- * @property {String} [prefix] Sets a path prefix for the entry name. Useful
- * when working with methods like `directory` or `glob`.
- * @property {fs.Stats} [stats] Sets the fs stat data for this entry allowing
- * for reduction of fs stat calls when stat data is already known.
- */
-
-/**
- * @typedef {Object} ErrorData
- * @property {String} message The message of the error.
- * @property {String} code The error code assigned to this error.
- * @property {String} data Additional data provided for reporting or debugging (where available).
- */
-
-/**
- * @typedef {Object} ProgressData
- * @property {Object} entries
- * @property {Number} entries.total Number of entries that have been appended.
- * @property {Number} entries.processed Number of entries that have been processed.
- * @property {Object} fs
- * @property {Number} fs.totalBytes Number of bytes that have been appended. Calculated asynchronously and might not be accurate: it growth while entries are added. (based on fs.Stats)
- * @property {Number} fs.processedBytes Number of bytes that have been processed. (based on fs.Stats)
- */
