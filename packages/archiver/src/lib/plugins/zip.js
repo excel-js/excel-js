@@ -5,7 +5,7 @@
  * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
  * @copyright (c) 2012-2014 Chris Talkington, contributors.
  */
-var engine = require('zip-stream');
+var engine = require('../../zip-stream/index.js');
 var util = require('archiver-utils');
 
 /**
