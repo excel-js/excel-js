@@ -15,7 +15,6 @@ var Stream = require('stream').Stream;
 var PassThrough = require('node:stream').PassThrough;
 
 var utils = module.exports = {};
-// utils.file = require('./file.js');
 
 utils.collectStream = function(source, callback) {
   var collection = [];
