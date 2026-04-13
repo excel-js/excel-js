@@ -4,7 +4,6 @@ var support = require("./support");
 var base64 = require("./base64");
 var nodejsUtils = require("./nodejsUtils");
 var external = require("./external");
-require("setimmediate");
 
 
 /**

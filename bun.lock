@@ -14,11 +14,10 @@
     },
     "packages/jszip": {
       "name": "@excel.js/jszip",
-      "version": "0.0.0",
+      "version": "0.0.1",
       "dependencies": {
         "lie": "~3.3.0",
         "pako": "~1.0.2",
-        "setimmediate": "^1.0.5",
       },
       "devDependencies": {
         "tsdown": "catalog:",
@@ -263,8 +262,6 @@
     "rolldown-plugin-dts": ["rolldown-plugin-dts@0.23.2", "", { "dependencies": { "@babel/generator": "8.0.0-rc.3", "@babel/helper-validator-identifier": "8.0.0-rc.3", "@babel/parser": "8.0.0-rc.3", "@babel/types": "8.0.0-rc.3", "ast-kit": "^3.0.0-beta.1", "birpc": "^4.0.0", "dts-resolver": "^2.1.3", "get-tsconfig": "^4.13.7", "obug": "^2.1.1", "picomatch": "^4.0.4" }, "peerDependencies": { "@ts-macro/tsc": "^0.3.6", "@typescript/native-preview": ">=7.0.0-dev.20260325.1", "rolldown": "^1.0.0-rc.12", "typescript": "^5.0.0 || ^6.0.0", "vue-tsc": "~3.2.0" }, "optionalPeers": ["@ts-macro/tsc", "@typescript/native-preview", "typescript", "vue-tsc"] }, "sha512-PbSqLawLgZBGcOGT3yqWBGn4cX+wh2nt5FuBGdcMHyOhoukmjbhYAl8NT9sE4U38Cm9tqLOIQeOrvzeayM0DLQ=="],
 
     "semver": ["semver@7.7.4", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA=="],
-
-    "setimmediate": ["setimmediate@1.0.5", "", {}, "sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA=="],
 
     "tinyexec": ["tinyexec@1.1.1", "", {}, "sha512-VKS/ZaQhhkKFMANmAOhhXVoIfBXblQxGX1myCQ2faQrfmobMftXeJPcZGp0gS07ocvGJWDLZGyOZDadDBqYIJg=="],
 

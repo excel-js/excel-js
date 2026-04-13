@@ -23,8 +23,7 @@
   },
   "dependencies": {
     "lie": "~3.3.0",
-    "pako": "~1.0.2",
-    "setimmediate": "^1.0.5"
+    "pako": "~1.0.2"
   },
   "devDependencies": {
     "tsdown": "catalog:"
