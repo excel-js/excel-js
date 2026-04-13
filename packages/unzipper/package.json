@@ -11,6 +11,7 @@
     "dist"
   ],
   "type": "module",
+  "main": "./dist/index.cjs",
   "exports": {
     ".": "./dist/index.cjs",
     "./package.json": "./package.json"
@@ -21,18 +22,13 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "big-integer": "^1.6.17",
     "binary": "~0.3.0",
-    "bluebird": "~3.4.1",
-    "duplexer2": "~0.1.4",
-    "fstream": "^1.0.12",
-    "graceful-fs": "^4.2.2"
+    "bluebird": "~3.4.1"
   },
   "devDependencies": {
     "tsdown": "catalog:"
   },
   "engines": {
     "node": ">=18"
-  },
-  "main": "./dist/index.cjs"
+  }
 }
