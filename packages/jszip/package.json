@@ -1,0 +1,37 @@
+{
+  "name": "@excel.js/jszip",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/excel-js/excel-js.git",
+    "directory": "packages/jszip"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "exports": {
+    ".": "./dist/index.cjs",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "bun test --reporter dot",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "lie": "~3.3.0",
+    "pako": "~1.0.2",
+    "readable-stream": "~2.3.6",
+    "setimmediate": "^1.0.5"
+  },
+  "devDependencies": {
+    "jszip": "3.10.1",
+    "tsdown": "catalog:"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
