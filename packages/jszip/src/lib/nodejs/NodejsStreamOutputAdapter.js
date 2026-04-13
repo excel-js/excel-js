@@ -1,6 +1,6 @@
 "use strict";
 
-var Readable = require("readable-stream").Readable;
+var Readable = require("node:stream").Readable;
 
 var utils = require("../utils");
 utils.inherits(NodejsStreamOutputAdapter, Readable);

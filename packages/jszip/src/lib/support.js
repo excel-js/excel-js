@@ -32,7 +32,7 @@ else {
 }
 
 try {
-    exports.nodestream = !!require("readable-stream").Readable;
+    exports.nodestream = !!require("node:stream").Readable;
 } catch(e) {
     exports.nodestream = false;
 }

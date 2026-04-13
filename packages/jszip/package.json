@@ -24,11 +24,9 @@
   "dependencies": {
     "lie": "~3.3.0",
     "pako": "~1.0.2",
-    "readable-stream": "~2.3.6",
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {
-    "jszip": "3.10.1",
     "tsdown": "catalog:"
   },
   "engines": {
