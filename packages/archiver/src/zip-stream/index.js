@@ -7,8 +7,8 @@
  */
 var inherits = require('util').inherits;
 
-var ZipArchiveOutputStream = require('compress-commons').ZipArchiveOutputStream;
-var ZipArchiveEntry = require('compress-commons').ZipArchiveEntry;
+var ZipArchiveOutputStream = require('../compress-commons/index.js').ZipArchiveOutputStream;
+var ZipArchiveEntry = require('../compress-commons/index.js').ZipArchiveEntry;
 
 var util = require('../archiver-utils/index.js');
 
