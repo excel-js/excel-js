@@ -7,8 +7,7 @@
  */
 var inherits = require('util').inherits;
 var crc32 = require('buffer-crc32');
-var {CRC32Stream} = require('crc32-stream');
-var {DeflateCRC32Stream} = require('crc32-stream');
+var {CRC32Stream, DeflateCRC32Stream} = require('../../../crc32-stream/index.js');
 
 var ArchiveOutputStream = require('../archive-output-stream');
 var ZipArchiveEntry = require('./zip-archive-entry');
