@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "binary": "~0.3.0",
-    "bluebird": "~3.4.1"
+    "bluebird": "~3.7.0"
   },
   "devDependencies": {
     "tsdown": "catalog:"
