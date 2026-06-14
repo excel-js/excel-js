@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "lie": "~3.3.0",
-    "pako": "~1.0.2"
+    "pako": "~2.1.0"
   },
   "devDependencies": {
     "tsdown": "catalog:"
