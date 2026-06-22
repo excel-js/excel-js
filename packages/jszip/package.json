@@ -27,6 +27,7 @@
     "pako": "~1.0.2"
   },
   "devDependencies": {
+    "tmp": "0.2.7",
     "tsdown": "catalog:"
   },
   "engines": {
