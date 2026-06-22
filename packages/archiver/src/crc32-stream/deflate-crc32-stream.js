@@ -6,11 +6,11 @@
  * https://github.com/archiverjs/node-crc32-stream/blob/master/LICENSE-MIT
  */
 
-'use strict';
+"use strict";
 
-const {DeflateRaw} = require('zlib');
+const { DeflateRaw } = require("zlib");
 
-const crc32 = require('crc-32');
+const crc32 = require("crc-32");
 
 class DeflateCRC32Stream extends DeflateRaw {
   constructor(options) {
@@ -37,7 +37,7 @@ class DeflateCRC32Stream extends DeflateRaw {
       this.rawSize += chunk.length;
     }
 
-    super._transform(chunk, encoding, callback)
+    super._transform(chunk, encoding, callback);
   }
 
   digest(encoding) {
@@ -47,7 +47,7 @@ class DeflateCRC32Stream extends DeflateRaw {
   }
 
   hex() {
-    return this.digest('hex').toUpperCase();
+    return this.digest("hex").toUpperCase();
   }
 
   size(compressed = false) {

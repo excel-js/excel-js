@@ -6,9 +6,9 @@
  * https://github.com/archiverjs/node-crc32-stream/blob/master/LICENSE-MIT
  */
 
-'use strict';
+"use strict";
 
 module.exports = {
-  CRC32Stream: require('./crc32-stream'),
-  DeflateCRC32Stream: require('./deflate-crc32-stream')
-}
+  CRC32Stream: require("./crc32-stream"),
+  DeflateCRC32Stream: require("./deflate-crc32-stream"),
+};

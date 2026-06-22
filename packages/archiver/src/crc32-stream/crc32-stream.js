@@ -6,11 +6,11 @@
  * https://github.com/archiverjs/node-crc32-stream/blob/master/LICENSE-MIT
  */
 
- 'use strict';
+"use strict";
 
-const {Transform} = require('node:stream');
+const { Transform } = require("node:stream");
 
-const crc32 = require('crc-32');
+const crc32 = require("crc-32");
 
 class CRC32Stream extends Transform {
   constructor(options) {
@@ -37,7 +37,7 @@ class CRC32Stream extends Transform {
   }
 
   hex() {
-    return this.digest('hex').toUpperCase();
+    return this.digest("hex").toUpperCase();
   }
 
   size() {

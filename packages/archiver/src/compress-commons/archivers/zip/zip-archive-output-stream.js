@@ -5,19 +5,22 @@
  * Licensed under the MIT license.
  * https://github.com/archiverjs/node-compress-commons/blob/master/LICENSE-MIT
  */
-var inherits = require('util').inherits;
-var crc32 = require('buffer-crc32');
-var {CRC32Stream, DeflateCRC32Stream} = require('../../../crc32-stream/index.js');
+var inherits = require("util").inherits;
+var crc32 = require("buffer-crc32");
+var {
+  CRC32Stream,
+  DeflateCRC32Stream,
+} = require("../../../crc32-stream/index.js");
 
-var ArchiveOutputStream = require('../archive-output-stream');
-var ZipArchiveEntry = require('./zip-archive-entry');
-var GeneralPurposeBit = require('./general-purpose-bit');
+var ArchiveOutputStream = require("../archive-output-stream");
+var ZipArchiveEntry = require("./zip-archive-entry");
+var GeneralPurposeBit = require("./general-purpose-bit");
 
-var constants = require('./constants');
-var util = require('../../util');
-var zipUtil = require('./util');
+var constants = require("./constants");
+var util = require("../../util");
+var zipUtil = require("./util");
 
-var ZipArchiveOutputStream = module.exports = function(options) {
+var ZipArchiveOutputStream = (module.exports = function (options) {
   if (!(this instanceof ZipArchiveOutputStream)) {
     return new ZipArchiveOutputStream(options);
   }
@@ -31,18 +34,18 @@ var ZipArchiveOutputStream = module.exports = function(options) {
   this._archive = {
     centralLength: 0,
     centralOffset: 0,
-    comment: '',
+    comment: "",
     finish: false,
     finished: false,
     processing: false,
     forceZip64: options.forceZip64,
-    forceLocalTime: options.forceLocalTime
+    forceLocalTime: options.forceLocalTime,
   };
-};
+});
 
 inherits(ZipArchiveOutputStream, ArchiveOutputStream);
 
-ZipArchiveOutputStream.prototype._afterAppend = function(ae) {
+ZipArchiveOutputStream.prototype._afterAppend = function (ae) {
   this._entries.push(ae);
 
   if (ae.getGeneralPurposeBit().usesDataDescriptor()) {
@@ -57,7 +60,11 @@ ZipArchiveOutputStream.prototype._afterAppend = function(ae) {
   }
 };
 
-ZipArchiveOutputStream.prototype._appendBuffer = function(ae, source, callback) {
+ZipArchiveOutputStream.prototype._appendBuffer = function (
+  ae,
+  source,
+  callback,
+) {
   if (source.length === 0) {
     ae.setMethod(constants.METHOD_STORED);
   }
@@ -81,35 +88,39 @@ ZipArchiveOutputStream.prototype._appendBuffer = function(ae, source, callback) 
     this._smartStream(ae, callback).end(source);
     return;
   } else {
-    callback(new Error('compression method ' + method + ' not implemented'));
+    callback(new Error("compression method " + method + " not implemented"));
     return;
   }
 };
 
-ZipArchiveOutputStream.prototype._appendStream = function(ae, source, callback) {
+ZipArchiveOutputStream.prototype._appendStream = function (
+  ae,
+  source,
+  callback,
+) {
   ae.getGeneralPurposeBit().useDataDescriptor(true);
   ae.setVersionNeededToExtract(constants.MIN_VERSION_DATA_DESCRIPTOR);
 
   this._writeLocalFileHeader(ae);
 
   var smart = this._smartStream(ae, callback);
-  source.once('error', function(err) {
-    smart.emit('error', err);
+  source.once("error", function (err) {
+    smart.emit("error", err);
     smart.end();
-  })
+  });
   source.pipe(smart);
 };
 
-ZipArchiveOutputStream.prototype._defaults = function(o) {
-  if (typeof o !== 'object') {
+ZipArchiveOutputStream.prototype._defaults = function (o) {
+  if (typeof o !== "object") {
     o = {};
   }
 
-  if (typeof o.zlib !== 'object') {
+  if (typeof o.zlib !== "object") {
     o.zlib = {};
   }
 
-  if (typeof o.zlib.level !== 'number') {
+  if (typeof o.zlib.level !== "number") {
     o.zlib.level = constants.ZLIB_BEST_SPEED;
   }
 
@@ -119,12 +130,14 @@ ZipArchiveOutputStream.prototype._defaults = function(o) {
   return o;
 };
 
-ZipArchiveOutputStream.prototype._finish = function() {
+ZipArchiveOutputStream.prototype._finish = function () {
   this._archive.centralOffset = this.offset;
 
-  this._entries.forEach(function(ae) {
-    this._writeCentralFileHeader(ae);
-  }.bind(this));
+  this._entries.forEach(
+    function (ae) {
+      this._writeCentralFileHeader(ae);
+    }.bind(this),
+  );
 
   this._archive.centralLength = this.offset - this._archive.centralOffset;
 
@@ -140,7 +153,7 @@ ZipArchiveOutputStream.prototype._finish = function() {
   this.end();
 };
 
-ZipArchiveOutputStream.prototype._normalizeEntry = function(ae) {
+ZipArchiveOutputStream.prototype._normalizeEntry = function (ae) {
   if (ae.getMethod() === -1) {
     ae.setMethod(constants.METHOD_DEFLATED);
   }
@@ -161,9 +174,11 @@ ZipArchiveOutputStream.prototype._normalizeEntry = function(ae) {
   };
 };
 
-ZipArchiveOutputStream.prototype._smartStream = function(ae, callback) {
+ZipArchiveOutputStream.prototype._smartStream = function (ae, callback) {
   var deflate = ae.getMethod() === constants.METHOD_DEFLATED;
-  var process = deflate ? new DeflateCRC32Stream(this.options.zlib) : new CRC32Stream();
+  var process = deflate
+    ? new DeflateCRC32Stream(this.options.zlib)
+    : new CRC32Stream();
   var error = null;
 
   function handleStuff() {
@@ -175,8 +190,8 @@ ZipArchiveOutputStream.prototype._smartStream = function(ae, callback) {
     callback(error, ae);
   }
 
-  process.once('end', handleStuff.bind(this));
-  process.once('error', function(err) {
+  process.once("end", handleStuff.bind(this));
+  process.once("error", function (err) {
     error = err;
   });
 
@@ -185,7 +200,7 @@ ZipArchiveOutputStream.prototype._smartStream = function(ae, callback) {
   return process;
 };
 
-ZipArchiveOutputStream.prototype._writeCentralDirectoryEnd = function() {
+ZipArchiveOutputStream.prototype._writeCentralDirectoryEnd = function () {
   var records = this._entries.length;
   var size = this._archive.centralLength;
   var offset = this._archive.centralOffset;
@@ -218,7 +233,7 @@ ZipArchiveOutputStream.prototype._writeCentralDirectoryEnd = function() {
   this.write(comment);
 };
 
-ZipArchiveOutputStream.prototype._writeCentralDirectoryZip64 = function() {
+ZipArchiveOutputStream.prototype._writeCentralDirectoryZip64 = function () {
   // signature
   this.write(zipUtil.getLongBytes(constants.SIG_ZIP64_EOCD));
 
@@ -253,13 +268,17 @@ ZipArchiveOutputStream.prototype._writeCentralDirectoryZip64 = function() {
   this.write(constants.LONG_ZERO);
 
   // relative offset of the ZIP64 EOCD record
-  this.write(zipUtil.getEightBytes(this._archive.centralOffset + this._archive.centralLength));
+  this.write(
+    zipUtil.getEightBytes(
+      this._archive.centralOffset + this._archive.centralLength,
+    ),
+  );
 
   // total number of disks
   this.write(zipUtil.getLongBytes(1));
 };
 
-ZipArchiveOutputStream.prototype._writeCentralFileHeader = function(ae) {
+ZipArchiveOutputStream.prototype._writeCentralFileHeader = function (ae) {
   var gpb = ae.getGeneralPurposeBit();
   var method = ae.getMethod();
   var offsets = ae._offsets;
@@ -273,13 +292,16 @@ ZipArchiveOutputStream.prototype._writeCentralFileHeader = function(ae) {
 
     ae.setVersionNeededToExtract(constants.MIN_VERSION_ZIP64);
 
-    var extraBuf = Buffer.concat([
-      zipUtil.getShortBytes(constants.ZIP64_EXTRA_ID),
-      zipUtil.getShortBytes(24),
-      zipUtil.getEightBytes(ae.getSize()),
-      zipUtil.getEightBytes(ae.getCompressedSize()),
-      zipUtil.getEightBytes(offsets.file)
-    ], 28);
+    var extraBuf = Buffer.concat(
+      [
+        zipUtil.getShortBytes(constants.ZIP64_EXTRA_ID),
+        zipUtil.getShortBytes(24),
+        zipUtil.getEightBytes(ae.getSize()),
+        zipUtil.getEightBytes(ae.getCompressedSize()),
+        zipUtil.getEightBytes(offsets.file),
+      ],
+      28,
+    );
 
     ae.setExtra(extraBuf);
   }
@@ -288,7 +310,9 @@ ZipArchiveOutputStream.prototype._writeCentralFileHeader = function(ae) {
   this.write(zipUtil.getLongBytes(constants.SIG_CFH));
 
   // version made by
-  this.write(zipUtil.getShortBytes((ae.getPlatform() << 8) | constants.VERSION_MADEBY));
+  this.write(
+    zipUtil.getShortBytes((ae.getPlatform() << 8) | constants.VERSION_MADEBY),
+  );
 
   // version to extract and general bit flag
   this.write(zipUtil.getShortBytes(ae.getVersionNeededToExtract()));
@@ -351,7 +375,7 @@ ZipArchiveOutputStream.prototype._writeCentralFileHeader = function(ae) {
   this.write(comment);
 };
 
-ZipArchiveOutputStream.prototype._writeDataDescriptor = function(ae) {
+ZipArchiveOutputStream.prototype._writeDataDescriptor = function (ae) {
   // signature
   this.write(zipUtil.getLongBytes(constants.SIG_DD));
 
@@ -368,7 +392,7 @@ ZipArchiveOutputStream.prototype._writeDataDescriptor = function(ae) {
   }
 };
 
-ZipArchiveOutputStream.prototype._writeLocalFileHeader = function(ae) {
+ZipArchiveOutputStream.prototype._writeLocalFileHeader = function (ae) {
   var gpb = ae.getGeneralPurposeBit();
   var method = ae.getMethod();
   var name = ae.getName();
@@ -426,14 +450,19 @@ ZipArchiveOutputStream.prototype._writeLocalFileHeader = function(ae) {
   ae._offsets.contents = this.offset;
 };
 
-ZipArchiveOutputStream.prototype.getComment = function(comment) {
-  return this._archive.comment !== null ? this._archive.comment : '';
+ZipArchiveOutputStream.prototype.getComment = function (comment) {
+  return this._archive.comment !== null ? this._archive.comment : "";
 };
 
-ZipArchiveOutputStream.prototype.isZip64 = function() {
-  return this._archive.forceZip64 || this._entries.length > constants.ZIP64_MAGIC_SHORT || this._archive.centralLength > constants.ZIP64_MAGIC || this._archive.centralOffset > constants.ZIP64_MAGIC;
+ZipArchiveOutputStream.prototype.isZip64 = function () {
+  return (
+    this._archive.forceZip64 ||
+    this._entries.length > constants.ZIP64_MAGIC_SHORT ||
+    this._archive.centralLength > constants.ZIP64_MAGIC ||
+    this._archive.centralOffset > constants.ZIP64_MAGIC
+  );
 };
 
-ZipArchiveOutputStream.prototype.setComment = function(comment) {
+ZipArchiveOutputStream.prototype.setComment = function (comment) {
   this._archive.comment = comment;
 };
