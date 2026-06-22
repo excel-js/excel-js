@@ -5,12 +5,13 @@
  * @license [MIT]{@link https://github.com/archiverjs/node-zip-stream/blob/master/LICENSE}
  * @copyright (c) 2014 Chris Talkington, contributors.
  */
-var inherits = require('util').inherits;
+var inherits = require("util").inherits;
 
-var ZipArchiveOutputStream = require('../compress-commons/index.js').ZipArchiveOutputStream;
-var ZipArchiveEntry = require('../compress-commons/index.js').ZipArchiveEntry;
+var ZipArchiveOutputStream =
+  require("../compress-commons/index.js").ZipArchiveOutputStream;
+var ZipArchiveEntry = require("../compress-commons/index.js").ZipArchiveEntry;
 
-var util = require('../archiver-utils/index.js');
+var util = require("../archiver-utils/index.js");
 
 /**
  * @constructor
@@ -23,7 +24,7 @@ var util = require('../archiver-utils/index.js');
  * @param {Object} [options.zlib] Passed to [zlib]{@link https://nodejs.org/api/zlib.html#zlib_class_options}
  * to control compression.
  */
-var ZipStream = module.exports = function(options) {
+var ZipStream = (module.exports = function (options) {
   if (!(this instanceof ZipStream)) {
     return new ZipStream(options);
   }
@@ -33,12 +34,16 @@ var ZipStream = module.exports = function(options) {
 
   ZipArchiveOutputStream.call(this, options);
 
-  if (typeof options.level === 'number' && options.level >= 0) {
+  if (typeof options.level === "number" && options.level >= 0) {
     options.zlib.level = options.level;
     delete options.level;
   }
 
-  if (!options.forceZip64 && typeof options.zlib.level === 'number' && options.zlib.level === 0) {
+  if (
+    !options.forceZip64 &&
+    typeof options.zlib.level === "number" &&
+    options.zlib.level === 0
+  ) {
     options.store = true;
   }
 
@@ -47,7 +52,7 @@ var ZipStream = module.exports = function(options) {
   if (options.comment && options.comment.length > 0) {
     this.setComment(options.comment);
   }
-};
+});
 
 inherits(ZipStream, ZipArchiveOutputStream);
 
@@ -58,29 +63,29 @@ inherits(ZipStream, ZipArchiveOutputStream);
  * @param  {Object} data
  * @return {Object}
  */
-ZipStream.prototype._normalizeFileData = function(data) {
+ZipStream.prototype._normalizeFileData = function (data) {
   data = util.defaults(data, {
-    type: 'file',
+    type: "file",
     name: null,
     namePrependSlash: this.options.namePrependSlash,
     linkname: null,
     date: null,
     mode: null,
     store: this.options.store,
-    comment: ''
+    comment: "",
   });
 
-  var isDir = data.type === 'directory';
-  var isSymlink = data.type === 'symlink';
+  var isDir = data.type === "directory";
+  var isSymlink = data.type === "symlink";
 
   if (data.name) {
     data.name = util.sanitizePath(data.name);
 
-    if (!isSymlink && data.name.slice(-1) === '/') {
+    if (!isSymlink && data.name.slice(-1) === "/") {
       isDir = true;
-      data.type = 'directory';
+      data.type = "directory";
     } else if (isDir) {
-      data.name += '/';
+      data.name += "/";
     }
   }
 
@@ -108,25 +113,33 @@ ZipStream.prototype._normalizeFileData = function(data) {
  * @param  {Function} callback
  * @return this
  */
-ZipStream.prototype.entry = function(source, data, callback) {
-  if (typeof callback !== 'function') {
+ZipStream.prototype.entry = function (source, data, callback) {
+  if (typeof callback !== "function") {
     callback = this._emitErrorCallback.bind(this);
   }
 
   data = this._normalizeFileData(data);
 
-  if (data.type !== 'file' && data.type !== 'directory' && data.type !== 'symlink') {
-    callback(new Error(data.type + ' entries not currently supported'));
+  if (
+    data.type !== "file" &&
+    data.type !== "directory" &&
+    data.type !== "symlink"
+  ) {
+    callback(new Error(data.type + " entries not currently supported"));
     return;
   }
 
-  if (typeof data.name !== 'string' || data.name.length === 0) {
-    callback(new Error('entry name must be a non-empty string value'));
+  if (typeof data.name !== "string" || data.name.length === 0) {
+    callback(new Error("entry name must be a non-empty string value"));
     return;
   }
 
-  if (data.type === 'symlink' && typeof data.linkname !== 'string') {
-    callback(new Error('entry linkname must be a non-empty string value when type equals symlink'));
+  if (data.type === "symlink" && typeof data.linkname !== "string") {
+    callback(
+      new Error(
+        "entry linkname must be a non-empty string value when type equals symlink",
+      ),
+    );
     return;
   }
 
@@ -145,23 +158,28 @@ ZipStream.prototype.entry = function(source, data, callback) {
     entry.setComment(data.comment);
   }
 
-  if (data.type === 'symlink' && typeof data.mode !== 'number') {
+  if (data.type === "symlink" && typeof data.mode !== "number") {
     data.mode = 40960; // 0120000
   }
 
-  if (typeof data.mode === 'number') {
-    if (data.type === 'symlink') {
+  if (typeof data.mode === "number") {
+    if (data.type === "symlink") {
       data.mode |= 40960;
     }
 
     entry.setUnixMode(data.mode);
   }
 
-  if (data.type === 'symlink' && typeof data.linkname === 'string') {
+  if (data.type === "symlink" && typeof data.linkname === "string") {
     source = Buffer.from(data.linkname);
   }
 
-  return ZipArchiveOutputStream.prototype.entry.call(this, entry, source, callback);
+  return ZipArchiveOutputStream.prototype.entry.call(
+    this,
+    entry,
+    source,
+    callback,
+  );
 };
 
 /**
@@ -170,7 +188,7 @@ ZipStream.prototype.entry = function(source, data, callback) {
  *
  * @return void
  */
-ZipStream.prototype.finalize = function() {
+ZipStream.prototype.finalize = function () {
   this.finish();
 };
 

@@ -5,9 +5,9 @@
  * Licensed under the MIT license.
  * https://github.com/archiverjs/node-compress-commons/blob/master/LICENSE-MIT
  */
-var util = module.exports = {};
+var util = (module.exports = {});
 
-util.dateToDos = function(d, forceLocalTime) {
+util.dateToDos = function (d, forceLocalTime) {
   forceLocalTime = forceLocalTime || false;
 
   var year = forceLocalTime ? d.getFullYear() : d.getUTCFullYear();
@@ -24,22 +24,35 @@ util.dateToDos = function(d, forceLocalTime) {
     date: forceLocalTime ? d.getDate() : d.getUTCDate(),
     hours: forceLocalTime ? d.getHours() : d.getUTCHours(),
     minutes: forceLocalTime ? d.getMinutes() : d.getUTCMinutes(),
-    seconds: forceLocalTime ? d.getSeconds() : d.getUTCSeconds()
+    seconds: forceLocalTime ? d.getSeconds() : d.getUTCSeconds(),
   };
 
-  return ((val.year - 1980) << 25) | ((val.month + 1) << 21) | (val.date << 16) |
-    (val.hours << 11) | (val.minutes << 5) | (val.seconds / 2);
+  return (
+    ((val.year - 1980) << 25) |
+    ((val.month + 1) << 21) |
+    (val.date << 16) |
+    (val.hours << 11) |
+    (val.minutes << 5) |
+    (val.seconds / 2)
+  );
 };
 
-util.dosToDate = function(dos) {
-  return new Date(((dos >> 25) & 0x7f) + 1980, ((dos >> 21) & 0x0f) - 1, (dos >> 16) & 0x1f, (dos >> 11) & 0x1f, (dos >> 5) & 0x3f, (dos & 0x1f) << 1);
+util.dosToDate = function (dos) {
+  return new Date(
+    ((dos >> 25) & 0x7f) + 1980,
+    ((dos >> 21) & 0x0f) - 1,
+    (dos >> 16) & 0x1f,
+    (dos >> 11) & 0x1f,
+    (dos >> 5) & 0x3f,
+    (dos & 0x1f) << 1,
+  );
 };
 
-util.fromDosTime = function(buf) {
+util.fromDosTime = function (buf) {
   return util.dosToDate(buf.readUInt32LE(0));
 };
 
-util.getEightBytes = function(v) {
+util.getEightBytes = function (v) {
   var buf = Buffer.alloc(8);
   buf.writeUInt32LE(v % 0x0100000000, 0);
   buf.writeUInt32LE((v / 0x0100000000) | 0, 4);
@@ -47,28 +60,28 @@ util.getEightBytes = function(v) {
   return buf;
 };
 
-util.getShortBytes = function(v) {
+util.getShortBytes = function (v) {
   var buf = Buffer.alloc(2);
-  buf.writeUInt16LE((v & 0xFFFF) >>> 0, 0);
+  buf.writeUInt16LE((v & 0xffff) >>> 0, 0);
 
   return buf;
 };
 
-util.getShortBytesValue = function(buf, offset) {
+util.getShortBytesValue = function (buf, offset) {
   return buf.readUInt16LE(offset);
 };
 
-util.getLongBytes = function(v) {
+util.getLongBytes = function (v) {
   var buf = Buffer.alloc(4);
-  buf.writeUInt32LE((v & 0xFFFFFFFF) >>> 0, 0);
+  buf.writeUInt32LE((v & 0xffffffff) >>> 0, 0);
 
   return buf;
 };
 
-util.getLongBytesValue = function(buf, offset) {
+util.getLongBytesValue = function (buf, offset) {
   return buf.readUInt32LE(offset);
 };
 
-util.toDosTime = function(d) {
+util.toDosTime = function (d) {
   return util.getLongBytes(util.dateToDos(d));
 };

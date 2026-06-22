@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsdown",
-    "test": "bun test --reporter dot",
+    "test:bun": "bun test --reporter dot",
+    "test": "node --test",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
@@ -26,7 +27,9 @@
     "pako": "~1.0.2"
   },
   "devDependencies": {
-    "tsdown": "catalog:"
+    "tmp": "0.2.7",
+    "tsdown": "catalog:",
+    "unrun": "0.3.1"
   },
   "engines": {
     "node": ">=18"

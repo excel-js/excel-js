@@ -5,13 +5,13 @@
  * Licensed under the MIT license.
  * https://github.com/archiverjs/node-compress-commons/blob/master/LICENSE-MIT
  */
-var inherits = require('util').inherits;
-var Transform = require('node:stream').Transform;
+var inherits = require("util").inherits;
+var Transform = require("node:stream").Transform;
 
-var ArchiveEntry = require('./archive-entry');
-var util = require('../util');
+var ArchiveEntry = require("./archive-entry");
+var util = require("../util");
 
-var ArchiveOutputStream = module.exports = function(options) {
+var ArchiveOutputStream = (module.exports = function (options) {
   if (!(this instanceof ArchiveOutputStream)) {
     return new ArchiveOutputStream(options);
   }
@@ -22,57 +22,61 @@ var ArchiveOutputStream = module.exports = function(options) {
   this._archive = {
     finish: false,
     finished: false,
-    processing: false
+    processing: false,
   };
-};
+});
 
 inherits(ArchiveOutputStream, Transform);
 
-ArchiveOutputStream.prototype._appendBuffer = function(zae, source, callback) {
+ArchiveOutputStream.prototype._appendBuffer = function (zae, source, callback) {
   // scaffold only
 };
 
-ArchiveOutputStream.prototype._appendStream = function(zae, source, callback) {
+ArchiveOutputStream.prototype._appendStream = function (zae, source, callback) {
   // scaffold only
 };
 
-ArchiveOutputStream.prototype._emitErrorCallback = function(err) {
+ArchiveOutputStream.prototype._emitErrorCallback = function (err) {
   if (err) {
-    this.emit('error', err);
+    this.emit("error", err);
   }
 };
 
-ArchiveOutputStream.prototype._finish = function(ae) {
+ArchiveOutputStream.prototype._finish = function (ae) {
   // scaffold only
 };
 
-ArchiveOutputStream.prototype._normalizeEntry = function(ae) {
+ArchiveOutputStream.prototype._normalizeEntry = function (ae) {
   // scaffold only
 };
 
-ArchiveOutputStream.prototype._transform = function(chunk, encoding, callback) {
+ArchiveOutputStream.prototype._transform = function (
+  chunk,
+  encoding,
+  callback,
+) {
   callback(null, chunk);
 };
 
-ArchiveOutputStream.prototype.entry = function(ae, source, callback) {
+ArchiveOutputStream.prototype.entry = function (ae, source, callback) {
   source = source || null;
 
-  if (typeof callback !== 'function') {
+  if (typeof callback !== "function") {
     callback = this._emitErrorCallback.bind(this);
   }
 
   if (!(ae instanceof ArchiveEntry)) {
-    callback(new Error('not a valid instance of ArchiveEntry'));
+    callback(new Error("not a valid instance of ArchiveEntry"));
     return;
   }
 
   if (this._archive.finish || this._archive.finished) {
-    callback(new Error('unacceptable entry after finish'));
+    callback(new Error("unacceptable entry after finish"));
     return;
   }
 
   if (this._archive.processing) {
-    callback(new Error('already processing an entry'));
+    callback(new Error("already processing an entry"));
     return;
   }
 
@@ -88,14 +92,14 @@ ArchiveOutputStream.prototype.entry = function(ae, source, callback) {
     this._appendStream(ae, source, callback);
   } else {
     this._archive.processing = false;
-    callback(new Error('input source must be valid Stream or Buffer instance'));
+    callback(new Error("input source must be valid Stream or Buffer instance"));
     return;
   }
 
   return this;
 };
 
-ArchiveOutputStream.prototype.finish = function() {
+ArchiveOutputStream.prototype.finish = function () {
   if (this._archive.processing) {
     this._archive.finish = true;
     return;
@@ -104,11 +108,11 @@ ArchiveOutputStream.prototype.finish = function() {
   this._finish();
 };
 
-ArchiveOutputStream.prototype.getBytesWritten = function() {
+ArchiveOutputStream.prototype.getBytesWritten = function () {
   return this.offset;
 };
 
-ArchiveOutputStream.prototype.write = function(chunk, cb) {
+ArchiveOutputStream.prototype.write = function (chunk, cb) {
   if (chunk) {
     this.offset += chunk.length;
   }
