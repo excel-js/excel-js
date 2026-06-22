@@ -13,6 +13,7 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "build": "bun run --parallel --filter='./packages/**' build",
+    "test:bun": "bun run --filter='./packages/**' test:bun",
     "test": "bun run --filter='./packages/**' test"
   },
   "devDependencies": {

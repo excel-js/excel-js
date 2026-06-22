@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsdown",
-    "test": "bun test --reporter dot",
+    "test:bun": "bun test --reporter dot",
+    "test": "node --test",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
