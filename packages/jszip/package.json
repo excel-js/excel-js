@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "lie": "~3.3.0",
-    "pako": "~2.1.0"
+    "pako": "~3.0.0"
   },
   "devDependencies": {
     "tmp": "0.2.7",
