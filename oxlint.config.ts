@@ -8,6 +8,7 @@ const config: OxlintConfig = defineConfig({
   rules: {
     "typescript/no-unnecessary-condition": "warn",
     "no-var": "warn",
+    "prefer-const": "warn",
     "prefer-template": "warn",
     "prefer-node-protocol": "warn",
     "no-unused-vars": "warn",
