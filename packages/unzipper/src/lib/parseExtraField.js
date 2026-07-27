@@ -3,7 +3,7 @@ var binary = require("binary");
 module.exports = function (extraField, vars) {
   var extra;
   // Find the ZIP64 header, if present.
-  while (!extra && extraField && extraField.length) {
+  while (!extra && extraField?.length) {
     var candidateExtra = binary
       .parse(extraField)
       .word16lu("signature")

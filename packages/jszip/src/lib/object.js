@@ -15,7 +15,7 @@ var NodejsStreamInputAdapter = require("./nodejs/NodejsStreamInputAdapter");
  * @private
  * @param {string} name the name of the file
  * @param {String|ArrayBuffer|Uint8Array|Buffer} data the data of the file
- * @param {Object} originalOptions the options of the file
+ * @param {Object} [originalOptions] the options of the file
  * @return {Object} the new file.
  */
 var fileAdd = function (name, data, originalOptions) {
@@ -55,7 +55,7 @@ var fileAdd = function (name, data, originalOptions) {
 
   var isUnicodeString =
     dataType === "string" && o.binary === false && o.base64 === false;
-  if (!originalOptions || typeof originalOptions.binary === "undefined") {
+  if (originalOptions?.binary === undefined) {
     o.binary = !isUnicodeString;
   }
 

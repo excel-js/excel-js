@@ -40,7 +40,7 @@ PullStream.prototype.stream = function (eof, includeEof) {
 
   function pull() {
     var packet;
-    if (self.buffer && self.buffer.length) {
+    if (self.buffer?.length) {
       if (typeof eof === "number") {
         packet = self.buffer.slice(0, eof);
         self.buffer = self.buffer.slice(eof);

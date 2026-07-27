@@ -21,7 +21,6 @@
     "test:bun": "bun test --reporter dot --pass-with-no-tests",
     "prepublishOnly": "bun run build"
   },
-  "dependencies": {},
   "devDependencies": {
     "async": "^3.2.4",
     "buffer-crc32": "^0.2.13",
@@ -29,7 +28,7 @@
     "graceful-fs": "^4.2.0",
     "lodash.defaults": "^4.2.0",
     "normalize-path": "^3.0.0",
-    "tsdown": "catalog:"
+    "tsdown": "0.22.14"
   },
   "engines": {
     "node": ">=18"

@@ -167,7 +167,7 @@ Parse.prototype._readFile = function () {
 
           if (
             self._readableState.pipesCount ||
-            (self._readableState.pipes && self._readableState.pipes.length)
+            self._readableState.pipes?.length
           )
             self.push(entry);
         }
