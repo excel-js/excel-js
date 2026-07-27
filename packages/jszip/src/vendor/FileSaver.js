@@ -16,8 +16,7 @@ var saveAs =
   saveAs ||
   // IE 10+ (native saveAs)
   (typeof navigator !== "undefined" &&
-    navigator.msSaveOrOpenBlob &&
-    navigator.msSaveOrOpenBlob.bind(navigator)) ||
+    navigator.msSaveOrOpenBlob?.bind?.(navigator)) ||
   // Everyone else
   (function (view) {
     "use strict";

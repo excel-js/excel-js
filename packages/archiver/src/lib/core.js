@@ -202,7 +202,7 @@ Archiver.prototype._moduleAppend = function (source, data, callback) {
       this.emit("entry", data);
       this._entriesProcessedCount++;
 
-      if (data.stats && data.stats.size) {
+      if (data.stats?.size) {
         this._fsEntriesProcessedBytes += data.stats.size;
       }
 
@@ -262,7 +262,7 @@ Archiver.prototype._modulePipe = function () {
  * @return {Boolean}
  */
 Archiver.prototype._moduleSupports = function (key) {
-  if (!this._module.supports || !this._module.supports[key]) {
+  if (!this._module.supports?.[key]) {
     return false;
   }
 

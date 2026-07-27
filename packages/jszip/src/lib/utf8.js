@@ -244,7 +244,7 @@ Utf8DecodeWorker.prototype.processChunk = function (chunk) {
   );
 
   // 1st step, re-use what's left of the previous chunk
-  if (this.leftOver && this.leftOver.length) {
+  if (this.leftOver?.length) {
     if (support.uint8array) {
       var previousData = data;
       data = new Uint8Array(previousData.length + this.leftOver.length);
@@ -278,7 +278,7 @@ Utf8DecodeWorker.prototype.processChunk = function (chunk) {
  * @see GenericWorker.flush
  */
 Utf8DecodeWorker.prototype.flush = function () {
-  if (this.leftOver && this.leftOver.length) {
+  if (this.leftOver?.length) {
     this.push({
       data: exports.utf8decode(this.leftOver),
       meta: {},

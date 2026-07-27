@@ -27,7 +27,7 @@ function DataWorker(dataP) {
     function (data) {
       self.dataIsReady = true;
       self.data = data;
-      self.max = (data && data.length) || 0;
+      self.max = data?.length || 0;
       self.type = utils.getTypeOf(data);
       if (!self.isPaused) {
         self._tickAndRepeat();
