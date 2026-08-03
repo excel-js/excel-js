@@ -4,7 +4,7 @@ var USE_TYPEDARRAY =
   typeof Uint16Array !== "undefined" &&
   typeof Uint32Array !== "undefined";
 
-var pako = require("pako");
+import * as pako from "es-pako";
 var utils = require("./utils");
 var GenericWorker = require("./stream/GenericWorker");
 
