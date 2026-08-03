@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import fs from "node:fs";
-import { test } from "node:test";
+import { desribe, test } from "node:test";
 
 import { Parse } from "@excel.js/unzipper";
 
 const UNCOMPRESSED_SIZE = 5368709120;
 const ZIP64_SIZE = 36;
 
-test("Correct uncompressed size for zip64", async (t) => {
+desribe("Correct uncompressed size for zip64", async (t) => {
   const archive = "./tests/fixtures/big.zip";
 
   await test("in unzipper.parse", async () => {
