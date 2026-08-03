@@ -88,7 +88,7 @@ Archiver.prototype._abort = function () {
  * @return void
  */
 Archiver.prototype._append = function (filepath, data) {
-  data = data || {};
+  data ||= {};
 
   var task = {
     source: null,

@@ -1,7 +1,8 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
 
-import JSZip from "../dist/index.cjs";
+import JSZip from "@excel.js/jszip";
+
 import {
   loadZipFile,
   similar,
@@ -22,7 +23,7 @@ await describe("unicode", () => {
   it("Text file with long unicode string", async () => {
     let expected = "\u20AC";
     for (let i = 0; i < 13; i++) {
-      expected = expected + expected;
+      expected += expected;
     }
     const zip = new JSZip();
     zip.file("amount.txt", expected);

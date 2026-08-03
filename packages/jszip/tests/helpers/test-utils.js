@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import JSZip from "../../dist/index.cjs";
+import JSZip from "@excel.js/jszip";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEST_DIR = join(__dirname, "..");
@@ -89,7 +89,7 @@ export function base64encode(input) {
 }
 
 export async function checkGenerateStability(bytesStream, options) {
-  options = options || { type: "binarystring" };
+  options ||= { type: "binarystring" };
   const zip = await new JSZip().loadAsync(bytesStream);
   const content = await zip.generateAsync(options);
   if (!similar(bytesStream, content, 0)) {

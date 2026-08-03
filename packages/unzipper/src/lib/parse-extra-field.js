@@ -22,7 +22,7 @@ module.exports = function (extraField, vars) {
     }
   }
 
-  extra = extra || {};
+  extra ||= {};
 
   if (vars.compressedSize === 0xffffffff)
     vars.compressedSize = extra.compressedSize;

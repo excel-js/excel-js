@@ -18,7 +18,7 @@ var decToHex = function (dec, bytes) {
     i;
   for (i = 0; i < bytes; i++) {
     hex += String.fromCharCode(dec & 0xff);
-    dec = dec >>> 8;
+    dec >>>= 8;
   }
   return hex;
 };
@@ -153,16 +153,16 @@ var generateZipParts = function (
   // @see http://www.delorie.com/djgpp/doc/rbinter/it/66/16.html
 
   dosTime = date.getUTCHours();
-  dosTime = dosTime << 6;
-  dosTime = dosTime | date.getUTCMinutes();
-  dosTime = dosTime << 5;
-  dosTime = dosTime | (date.getUTCSeconds() / 2);
+  dosTime <<= 6;
+  dosTime |= date.getUTCMinutes();
+  dosTime <<= 5;
+  dosTime |= date.getUTCSeconds() / 2;
 
   dosDate = date.getUTCFullYear() - 1980;
-  dosDate = dosDate << 4;
-  dosDate = dosDate | (date.getUTCMonth() + 1);
-  dosDate = dosDate << 5;
-  dosDate = dosDate | date.getUTCDate();
+  dosDate <<= 4;
+  dosDate |= date.getUTCMonth() + 1;
+  dosDate <<= 5;
+  dosDate |= date.getUTCDate();
 
   if (useUTF8ForFileName) {
     // set the unicode path extra field. unzip needs at least one extra

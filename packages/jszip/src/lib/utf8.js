@@ -103,7 +103,7 @@ var string2buf = function (str) {
 var utf8border = function (buf, max) {
   var pos;
 
-  max = max || buf.length;
+  max ||= buf.length;
   if (max > buf.length) {
     max = buf.length;
   }

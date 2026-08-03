@@ -59,7 +59,7 @@ ArchiveOutputStream.prototype._transform = function (
 };
 
 ArchiveOutputStream.prototype.entry = function (ae, source, callback) {
-  source = source || null;
+  source ||= null;
 
   if (typeof callback !== "function") {
     callback = this._emitErrorCallback.bind(this);

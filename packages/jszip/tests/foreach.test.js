@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
 
-import JSZip from "../dist/index.cjs";
+import JSZip from "@excel.js/jszip";
 
 function createZipAll() {
   const zip = new JSZip();

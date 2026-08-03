@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
 
-import JSZip from "../dist/index.cjs";
+import JSZip from "@excel.js/jszip";
 
 await describe("version", () => {
   it("JSZip.version is correct", () => {
