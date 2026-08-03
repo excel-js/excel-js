@@ -12,6 +12,7 @@ const config: OxlintConfig = defineConfig({
     "prefer-template": "warn",
     "prefer-node-protocol": "warn",
     "no-unused-vars": "warn",
+    "no-this-alias": "warn",
   },
 });
 

@@ -10,7 +10,7 @@ test("pipe a single file entry out of a zip", async () => {
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => {
         if (entry.path === "file.txt") {
           const writableStream = new streamBuffers.WritableStreamBuffer();

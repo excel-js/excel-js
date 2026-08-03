@@ -7,7 +7,7 @@ import { Parse } from "@excel.js/unzipper";
 test("Parse a broken zipfile", async () => {
   const archive = "./tests/fixtures/compressed-standard/broken.zip";
 
-  const parserStream = fs.createReadStream(archive).pipe(Parse());
+  const parserStream = fs.createReadStream(archive).pipe(new Parse());
 
   parserStream.on("entry", (entry) => {
     return entry.autodrain();

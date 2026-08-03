@@ -12,7 +12,7 @@ test("Correct uncompressed size for zip64 - in unzipper.parse", async () => {
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => {
         try {
           assert.strictEqual(
@@ -34,7 +34,7 @@ test("Parse files from regular zip64 format correctly - in unzipper.parse", asyn
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => {
         try {
           assert.strictEqual(

@@ -8,7 +8,7 @@ const archive = "./package.json";
 
 test("parse a file that is not an archive", async () => {
   await new Promise((resolve, reject) => {
-    const unzipParser = Parse();
+    const unzipParser = new Parse();
 
     fs.createReadStream(archive).pipe(unzipParser);
 

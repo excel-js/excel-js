@@ -47,7 +47,7 @@ test("pipe a single file entry out of a zip", async () => {
     receiver.on("error", reject);
 
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .pipe(receiver)
       .on("error", reject);
   });

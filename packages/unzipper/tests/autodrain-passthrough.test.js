@@ -9,7 +9,7 @@ test("verify that immediate autodrain does not unzip", async () => {
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => {
         entry.autodrain().on("finish", () => {
           assert.strictEqual(entry.__autodraining, true);
@@ -25,7 +25,7 @@ test("verify that autodrain promise works", async () => {
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => {
         entry
           .autodrain()
@@ -45,7 +45,7 @@ test("verify that autodrain resolves after it has finished", async () => {
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => entry.autodrain())
       .on("finish", resolve)
       .on("end", resolve)
