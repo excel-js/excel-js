@@ -23,10 +23,12 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "binary": "~0.3.0",
-    "bluebird": "~3.4.1"
+    "bluebird": "~3.4.1",
+    "buffers": "0.1.1",
+    "chainsaw": "0.1.0"
   },
   "devDependencies": {
+    "@types/bluebird": "3.5.42",
     "iconv-lite": "0.7.3",
     "nano-stream-buffers": "0.1.0",
     "tsdown": "0.22.14"

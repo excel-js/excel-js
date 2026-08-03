@@ -9,7 +9,7 @@ test("get content of a single file entry out of a zip", async () => {
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(archive)
-      .pipe(Parse())
+      .pipe(new Parse())
       .on("entry", (entry) => {
         if (entry.path !== "file.txt") return entry.autodrain();
 

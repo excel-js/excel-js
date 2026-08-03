@@ -11,7 +11,7 @@ test("promise should resolve when entries have been processed", async () => {
   // Track async entry buffer processing so we can wait for it
   const entryPromises = [];
 
-  const parserStream = fs.createReadStream(archive).pipe(Parse());
+  const parserStream = fs.createReadStream(archive).pipe(new Parse());
 
   parserStream.on("entry", (entry) => {
     if (entry.path !== "file.txt") return entry.autodrain();
@@ -34,7 +34,7 @@ test("promise should resolve when entries have been processed", async () => {
 test("promise should be rejected if there is an error in the stream", async () => {
   const archive = "./tests/fixtures/compressed-standard/archive.zip";
 
-  const parserStream = fs.createReadStream(archive).pipe(Parse());
+  const parserStream = fs.createReadStream(archive).pipe(new Parse());
 
   parserStream.on("entry", function () {
     this.emit("error", new Error("this is an error"));

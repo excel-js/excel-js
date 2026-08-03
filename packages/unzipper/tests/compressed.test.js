@@ -9,7 +9,7 @@ test("parse compressed archive (created by POSIX zip)", async () => {
   const archive = "./tests/fixtures/compressed-standard/archive.zip";
 
   await new Promise((resolve, reject) => {
-    const unzipParser = Parse();
+    const unzipParser = new Parse();
 
     fs.createReadStream(archive).pipe(unzipParser);
 
@@ -23,7 +23,7 @@ test("parse compressed archive (created by DOS zip)", async () => {
   const archive = "./tests/fixtures/compressed-cp866/archive.zip";
 
   await new Promise((resolve, reject) => {
-    const unzipParser = Parse();
+    const unzipParser = new Parse();
 
     fs.createReadStream(archive).pipe(unzipParser);
 

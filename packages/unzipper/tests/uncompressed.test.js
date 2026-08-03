@@ -7,7 +7,7 @@ test("parse uncompressed archive", async () => {
   const archive = "./tests/fixtures/uncompressed/archive.zip";
 
   await new Promise((resolve, reject) => {
-    const unzipParser = Parse();
+    const unzipParser = new Parse();
 
     fs.createReadStream(archive).pipe(unzipParser);
 

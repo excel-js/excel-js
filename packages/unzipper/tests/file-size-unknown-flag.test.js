@@ -7,7 +7,7 @@ test("parse archive w/ file size unknown flag set (created by OS X Finder)", asy
   const archive = "./tests/fixtures/compressed-OSX-Finder/archive.zip";
 
   await new Promise((resolve, reject) => {
-    const unzipParser = Parse();
+    const unzipParser = new Parse();
 
     fs.createReadStream(archive).pipe(unzipParser);
 

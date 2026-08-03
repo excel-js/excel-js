@@ -1,10 +1,10 @@
-var binary = require("binary");
+import binary from "./binary";
 
-module.exports = function (extraField, vars) {
-  var extra;
+function parseExtraField(extraField, vars) {
+  let extra;
   // Find the ZIP64 header, if present.
   while (!extra && extraField?.length) {
-    var candidateExtra = binary
+    const candidateExtra = binary
       .parse(extraField)
       .word16lu("signature")
       .word16lu("partsize")
@@ -34,4 +34,6 @@ module.exports = function (extraField, vars) {
     vars.offsetToLocalFileHeader = extra.offset;
 
   return extra;
-};
+}
+
+export { parseExtraField };

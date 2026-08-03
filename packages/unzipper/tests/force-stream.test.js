@@ -13,7 +13,7 @@ test("verify that setting the forceStream option emits a data event instead of e
     let entryEventEmitted = false;
 
     fs.createReadStream(archive)
-      .pipe(Parse({ forceStream: true }))
+      .pipe(new Parse({ forceStream: true }))
       .on("data", (entry) => {
         assert.strictEqual(entry instanceof Stream.PassThrough, true);
         dataEventEmitted = true;
