@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsdown",
-    "test:bun": "bun test --reporter dot --pass-with-no-tests",
+    "test:bun": "bun test --reporter dot",
+    "test": "node --test",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "bluebird": "~3.4.1"
   },
   "devDependencies": {
+    "nano-stream-buffers": "0.1.0",
     "tsdown": "0.22.14"
   },
   "engines": {

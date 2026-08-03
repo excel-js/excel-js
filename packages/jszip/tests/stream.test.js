@@ -3,9 +3,9 @@ import { readFile, unlink } from "node:fs";
 import { createWriteStream } from "node:fs";
 import { describe, it } from "node:test";
 
+import JSZip from "@excel.js/jszip";
 import tmp from "tmp";
 
-import JSZip from "../dist/index.cjs";
 import {
   loadZipFile,
   createZipAll,

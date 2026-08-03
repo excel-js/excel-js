@@ -3,11 +3,11 @@ var zlib = require("zlib");
 var Stream = require("stream");
 var binary = require("binary");
 var Promise = require("bluebird");
-var PullStream = require("./PullStream");
-var NoopStream = require("./NoopStream");
-var BufferStream = require("./BufferStream");
-var parseExtraField = require("./parseExtraField");
-var parseDateTime = require("./parseDateTime");
+var PullStream = require("./pull-stream");
+var NoopStream = require("./noop-stream");
+var BufferStream = require("./buffer-stream");
+var parseExtraField = require("./parse-extra-field");
+var parseDateTime = require("./parse-date-time");
 
 var endDirectorySignature = Buffer.alloc(4);
 endDirectorySignature.writeUInt32LE(0x06054b50, 0);
