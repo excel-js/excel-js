@@ -28,7 +28,7 @@ var fileAdd = function (name, data, originalOptions) {
    */
 
   var o = utils.extend(originalOptions || {}, defaults);
-  o.date = o.date || new Date();
+  o.date ||= new Date();
   if (o.compression !== null) {
     o.compression = o.compression.toUpperCase();
   }
@@ -387,7 +387,7 @@ var out = {
    * @see generateInternalStream
    */
   generateNodeStream: function (options, onUpdate) {
-    options = options || {};
+    options ||= {};
     if (!options.type) {
       options.type = "nodebuffer";
     }

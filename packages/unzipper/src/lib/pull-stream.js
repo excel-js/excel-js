@@ -52,7 +52,7 @@ PullStream.prototype.stream = function (eof, includeEof) {
           // store signature match byte offset to allow us to reference
           // this for zip64 offset
           self.match = match;
-          if (includeEof) match = match + eof.length;
+          if (includeEof) match += eof.length;
           packet = self.buffer.slice(0, match);
           self.buffer = self.buffer.slice(match);
           done = true;

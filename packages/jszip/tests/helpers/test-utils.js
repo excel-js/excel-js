@@ -89,7 +89,7 @@ export function base64encode(input) {
 }
 
 export async function checkGenerateStability(bytesStream, options) {
-  options = options || { type: "binarystring" };
+  options ||= { type: "binarystring" };
   const zip = await new JSZip().loadAsync(bytesStream);
   const content = await zip.generateAsync(options);
   if (!similar(bytesStream, content, 0)) {

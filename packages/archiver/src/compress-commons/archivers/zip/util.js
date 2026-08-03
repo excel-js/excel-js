@@ -8,7 +8,7 @@
 var util = (module.exports = {});
 
 util.dateToDos = function (d, forceLocalTime) {
-  forceLocalTime = forceLocalTime || false;
+  forceLocalTime ||= false;
 
   var year = forceLocalTime ? d.getFullYear() : d.getUTCFullYear();
 

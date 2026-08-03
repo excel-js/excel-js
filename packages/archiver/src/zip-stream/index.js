@@ -30,7 +30,7 @@ var ZipStream = (module.exports = function (options) {
   }
 
   options = this.options = options || {};
-  options.zlib = options.zlib || {};
+  options.zlib ||= {};
 
   ZipArchiveOutputStream.call(this, options);
 
@@ -47,7 +47,7 @@ var ZipStream = (module.exports = function (options) {
     options.store = true;
   }
 
-  options.namePrependSlash = options.namePrependSlash || false;
+  options.namePrependSlash ||= false;
 
   if (options.comment && options.comment.length > 0) {
     this.setComment(options.comment);

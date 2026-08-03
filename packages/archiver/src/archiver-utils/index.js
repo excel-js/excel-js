@@ -16,7 +16,7 @@ var PassThrough = require("node:stream").PassThrough;
 var utils = (module.exports = {});
 
 utils.dateify = function (dateish) {
-  dateish = dateish || new Date();
+  dateish ||= new Date();
 
   if (dateish instanceof Date) {
     dateish = dateish;
@@ -32,7 +32,7 @@ utils.dateify = function (dateish) {
 // this is slightly different from lodash version
 utils.defaults = function (object, source, guard) {
   var args = arguments;
-  args[0] = args[0] || {};
+  args[0] ||= {};
 
   return defaults(...args);
 };
