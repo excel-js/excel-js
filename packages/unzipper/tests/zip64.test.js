@@ -10,7 +10,7 @@ const ZIP64_SIZE = 36;
 test("Correct uncompressed size for zip64", async (t) => {
   const archive = "./tests/fixtures/big.zip";
 
-  await t.test("in unzipper.parse", async () => {
+  await test("in unzipper.parse", async () => {
     await new Promise((resolve, reject) => {
       fs.createReadStream(archive)
         .pipe(Parse())
@@ -34,7 +34,7 @@ test("Correct uncompressed size for zip64", async (t) => {
 test("Parse files from regular zip64 format correctly", async (t) => {
   const archive = "./tests/fixtures/zip64.zip";
 
-  await t.test("in unzipper.parse", async () => {
+  await test("in unzipper.parse", async () => {
     await new Promise((resolve, reject) => {
       fs.createReadStream(archive)
         .pipe(Parse())
