@@ -39,7 +39,7 @@
     },
     "packages/unzipper": {
       "name": "@excel.js/unzipper",
-      "version": "0.0.2",
+      "version": "0.1.0",
       "dependencies": {
         "bluebird": "~3.7.0",
         "buffers": "0.1.1",
