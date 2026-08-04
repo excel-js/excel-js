@@ -280,9 +280,7 @@ await describe("load", async () => {
 
   it("load(promise) works", async () => {
     const fileAsString = loadZipFile("ref/all.zip");
-    const zip = await JSZip.loadAsync(
-      JSZip.external.Promise.resolve(fileAsString),
-    );
+    const zip = await JSZip.loadAsync(Promise.resolve(fileAsString));
     const content = await zip.file("Hello.txt").async("string");
     assert.equal(content, "Hello World\n");
   });
