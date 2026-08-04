@@ -27,7 +27,7 @@
     },
     "packages/jszip": {
       "name": "@excel.js/jszip",
-      "version": "0.0.2",
+      "version": "0.1.0",
       "dependencies": {
         "es-pako": "0.0.3",
       },
