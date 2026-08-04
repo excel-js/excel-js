@@ -23,7 +23,6 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "bluebird": "~3.7.0",
     "buffers": "0.1.1",
     "chainsaw": "0.1.0"
   },

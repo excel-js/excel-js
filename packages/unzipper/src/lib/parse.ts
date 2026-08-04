@@ -1,8 +1,6 @@
 import { PassThrough } from "node:stream";
 import zlib from "node:zlib";
 
-import BluebirdPromise from "bluebird";
-
 import binary from "./binary";
 import BufferStream from "./buffer-stream";
 import NoopStream from "./noop-stream";
@@ -117,7 +115,7 @@ class Parse extends PullStream {
           __autodraining = true;
           var draining = entry.pipe(new NoopStream());
           draining.promise = function () {
-            return new BluebirdPromise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
               draining.on("finish", resolve);
               draining.on("error", reject);
             });
@@ -195,7 +193,7 @@ class Parse extends PullStream {
             eof.writeUInt32LE(0x08074b50, 0);
           }
 
-          return new BluebirdPromise(function (resolve, reject) {
+          return new Promise(function (resolve, reject) {
             self
               .stream(eof)
               .pipe(inflater)
@@ -292,7 +290,7 @@ class Parse extends PullStream {
 
   promise() {
     var self = this;
-    return new BluebirdPromise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
       self.on("finish", resolve);
       self.on("error", reject);
     });

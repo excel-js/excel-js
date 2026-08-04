@@ -1,12 +1,10 @@
 import { Duplex, PassThrough, Transform } from "node:stream";
 
-import BluebirdPromise from "bluebird";
-
 class PullStream extends Duplex {
   constructor() {
     super({ decodeStrings: false, objectMode: true });
     this.buffer = Buffer.from("");
-    var self = this;
+    const self = this;
     self.on("finish", function () {
       self.finished = true;
       self.emit("chunk", false);
@@ -20,20 +18,20 @@ class PullStream extends Duplex {
   }
 
   stream(eof, includeEof) {
-    var p = new PassThrough();
-    var done,
-      self = this;
+    const p = new PassThrough();
+    let done;
+    const self = this;
 
     function cb() {
       if (typeof self.cb === "function") {
-        var callback = self.cb;
+        const callback = self.cb;
         self.cb = undefined;
         return callback();
       }
     }
 
     function pull() {
-      var packet;
+      let packet;
       if (self.buffer?.length) {
         if (typeof eof === "number") {
           packet = self.buffer.slice(0, eof);
@@ -49,7 +47,7 @@ class PullStream extends Duplex {
             self.buffer = self.buffer.slice(match);
             done = true;
           } else {
-            var len = self.buffer.length - eof.length;
+            const len = self.buffer.length - eof.length;
             if (len <= 0) {
               cb();
             } else {
@@ -86,26 +84,26 @@ class PullStream extends Duplex {
   }
 
   pull(eof, includeEof) {
-    if (eof === 0) return BluebirdPromise.resolve("");
+    if (eof === 0) return Promise.resolve("");
 
     if (!isNaN(eof) && this.buffer.length > eof) {
-      var data = this.buffer.slice(0, eof);
+      const data = this.buffer.slice(0, eof);
       this.buffer = this.buffer.slice(eof);
-      return BluebirdPromise.resolve(data);
+      return Promise.resolve(data);
     }
 
-    var buffer = Buffer.from(""),
-      self = this;
+    let buffer = Buffer.from("");
+    const self = this;
 
-    var concatStream = new Transform();
+    const concatStream = new Transform();
     concatStream._transform = function (d, e, cb) {
       buffer = Buffer.concat([buffer, d]);
       cb();
     };
 
-    var rejectHandler;
-    var pullStreamRejectHandler;
-    return new BluebirdPromise(function (resolve, reject) {
+    let rejectHandler;
+    let pullStreamRejectHandler;
+    return new Promise((resolve, reject) => {
       rejectHandler = reject;
       pullStreamRejectHandler = function (e) {
         self.__emittedError = e;
@@ -121,7 +119,7 @@ class PullStream extends Duplex {
           resolve(buffer);
         })
         .on("error", reject);
-    }).finally(function () {
+    }).finally(() => {
       self.removeListener("error", rejectHandler);
       self.removeListener("error", pullStreamRejectHandler);
     });
