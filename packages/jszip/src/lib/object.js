@@ -98,7 +98,7 @@ var fileAdd = function (name, data, originalOptions) {
     object for chaining. Should we break that to allow the user
     to catch the error ?
 
-    return external.Promise.resolve(zipObjectContent)
+    return Promise.resolve(zipObjectContent)
     .then(function () {
         return object;
     });

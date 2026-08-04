@@ -10,7 +10,6 @@ import {
   MAX_BYTES_DIFFERENCE_PER_ZIP_ENTRY,
   checkGenerateStability,
   checkBasicStreamBehavior,
-  base64encode,
   toString,
 } from "./helpers/test-utils.js";
 
@@ -377,13 +376,13 @@ await describe("generate", async () => {
     const zip = new JSZip();
     zip.file(
       "Hello.txt",
-      new JSZip.external.Promise((resolve) => {
+      new Promise((resolve) => {
         setTimeout(() => resolve("Hello World\n"), 50);
       }),
     );
     zip.folder("images").file(
       "smile.gif",
-      new JSZip.external.Promise((resolve) => {
+      new Promise((resolve) => {
         setTimeout(
           () =>
             resolve("R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs="),

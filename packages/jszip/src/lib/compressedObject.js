@@ -1,6 +1,5 @@
 "use strict";
 
-var external = require("./external");
 var DataWorker = require("./stream/DataWorker");
 var Crc32Probe = require("./stream/Crc32Probe");
 var DataLengthProbe = require("./stream/DataLengthProbe");
@@ -34,9 +33,7 @@ CompressedObject.prototype = {
    * @return {GenericWorker} the worker.
    */
   getContentWorker: function () {
-    var worker = new DataWorker(
-      external.Promise.resolve(this.compressedContent),
-    )
+    var worker = new DataWorker(Promise.resolve(this.compressedContent))
       .pipe(this.compression.uncompressWorker())
       .pipe(new DataLengthProbe("data_length"));
 
@@ -53,7 +50,7 @@ CompressedObject.prototype = {
    * @return {GenericWorker} the worker.
    */
   getCompressedWorker: function () {
-    return new DataWorker(external.Promise.resolve(this.compressedContent))
+    return new DataWorker(Promise.resolve(this.compressedContent))
       .withStreamInfo("compressedSize", this.compressedSize)
       .withStreamInfo("uncompressedSize", this.uncompressedSize)
       .withStreamInfo("crc32", this.crc32)

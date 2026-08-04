@@ -5,7 +5,6 @@ var ConvertWorker = require("./ConvertWorker");
 var GenericWorker = require("./GenericWorker");
 var base64 = require("../base64");
 var support = require("../support");
-var external = require("../external");
 
 var NodejsStreamOutputAdapter = null;
 if (support.nodestream) {
@@ -80,7 +79,7 @@ function concat(type, dataArray) {
  * @return Promise the promise for the accumulation.
  */
 function accumulate(helper, updateCallback) {
-  return new external.Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var dataArray = [];
     var chunkType = helper._internalType,
       resultType = helper._outputType,

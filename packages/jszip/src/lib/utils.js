@@ -3,7 +3,6 @@
 var support = require("./support");
 var base64 = require("./base64");
 var nodejsUtils = require("./nodejsUtils");
-var external = require("./external");
 
 /**
  * Convert a string that pass as a "binary string": it should represent a byte
@@ -480,7 +479,7 @@ exports.prepareContent = function (
   isBase64,
 ) {
   // if inputData is already a promise, this flatten it.
-  var promise = external.Promise.resolve(inputData).then(function (data) {
+  var promise = Promise.resolve(inputData).then(function (data) {
     var isBlob =
       support.blob &&
       (data instanceof Blob ||
@@ -489,7 +488,7 @@ exports.prepareContent = function (
         ) !== -1);
 
     if (isBlob && typeof FileReader !== "undefined") {
-      return new external.Promise(function (resolve, reject) {
+      return new Promise(function (resolve, reject) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
@@ -509,7 +508,7 @@ exports.prepareContent = function (
     var dataType = exports.getTypeOf(data);
 
     if (!dataType) {
-      return external.Promise.reject(
+      return Promise.reject(
         new Error(
           "Can't read the data of '" +
             name +

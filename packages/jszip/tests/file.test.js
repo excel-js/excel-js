@@ -12,14 +12,6 @@ import {
   toString,
 } from "./helpers/test-utils.js";
 
-function str2blob(str) {
-  const u8 = new Uint8Array(str.length);
-  for (let i = 0; i < str.length; i++) {
-    u8[i] = str.charCodeAt(i);
-  }
-  return new Blob([u8.buffer], { type: "text/plain" });
-}
-
 await describe("file", async () => {
   await describe("add", () => {
     it("Zip text file !", async () => {
@@ -492,9 +484,7 @@ await describe("file", async () => {
 
     it("add file: file(name, polyfill Promise[string] as binary)", async () => {
       const str2promise = (str) =>
-        new JSZip.external.Promise((resolve) =>
-          setTimeout(() => resolve(str), 10),
-        );
+        new Promise((resolve) => setTimeout(() => resolve(str), 10));
       const zip = new JSZip();
       zip.file("file.txt", str2promise("\xE2\x82\xAC15\n"), { binary: true });
       await testFileDataGetters({
@@ -507,9 +497,7 @@ await describe("file", async () => {
 
     it("add file: file(name, polyfill Promise[string] force text)", async () => {
       const str2promise = (str) =>
-        new JSZip.external.Promise((resolve) =>
-          setTimeout(() => resolve(str), 10),
-        );
+        new Promise((resolve) => setTimeout(() => resolve(str), 10));
       const zip = new JSZip();
       zip.file("file.txt", str2promise("\u20AC15\n"), { binary: false });
       await testFileDataGetters({
