@@ -1,6 +1,6 @@
 {
   "name": "@excel.js/unzipper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
     "chainsaw": "0.1.0"
   },
   "devDependencies": {
-    "@types/bluebird": "3.5.42",
     "iconv-lite": "0.7.3",
     "nano-stream-buffers": "0.1.0",
     "tsdown": "0.22.14"
