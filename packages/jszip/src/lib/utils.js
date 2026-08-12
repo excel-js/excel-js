@@ -523,13 +523,14 @@ exports.prepareContent = function (
     } else if (dataType === "string") {
       if (isBase64) {
         data = base64.decode(data);
-      } else if (isBinary) {
+      } else if (
+        isBinary &&
         // optimizedBinaryString === true means that the file has already been filtered with a 0xFF mask
-        if (isOptimizedBinaryString !== true) {
-          // this is a string, not in a base64 format.
-          // Be sure that this is a correct "binary string"
-          data = string2binary(data);
-        }
+        isOptimizedBinaryString !== true
+      ) {
+        // this is a string, not in a base64 format.
+        // Be sure that this is a correct "binary string"
+        data = string2binary(data);
       }
     }
     return data;
