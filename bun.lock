@@ -29,7 +29,7 @@
       "name": "@excel.js/jszip",
       "version": "0.1.0",
       "dependencies": {
-        "es-pako": "https://pkg.pr.new/es-pako@bd9f612",
+        "es-pako": "https://pkg.pr.new/es-pako@5512036",
       },
       "devDependencies": {
         "tmp": "0.2.7",
@@ -305,7 +305,7 @@
 
     "empathic": ["empathic@2.0.1", "", {}, "sha512-YGRs8knHhKHVShLkFET/rWAU8kmHbOV5LwN938RHI0pljAJ1Gf6SzXsSmRaEzcXTtOOmVqJ5+WtQPL5uigY50Q=="],
 
-    "es-pako": ["es-pako@https://pkg.pr.new/es-pako@bd9f612", {}, "sha512-G0I/9qJSjfedbM/C9tzViV6hpqYQjLZ2+fLH5ASIbcS9aJvkVcvHolvM/DPhOHEwKJ6TAIsVFUBJWNizFPqOQw=="],
+    "es-pako": ["es-pako@https://pkg.pr.new/es-pako@5512036", {}, "sha512-QDhovMro4BLY42mFZAxzshvG5KEhENnzK/ssiwpZiCSdqTsNyP75RT/ZjDIMJqad0rEgO5QTLm9vsGP8nygtog=="],
 
     "fdir": ["fdir@6.5.0", "", { "peerDependencies": { "picomatch": "^3 || ^4" }, "optionalPeers": ["picomatch"] }, "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg=="],
 
