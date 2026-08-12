@@ -29,7 +29,7 @@
       "name": "@excel.js/jszip",
       "version": "0.1.0",
       "dependencies": {
-        "es-pako": "0.0.3",
+        "es-pako": "0.1.0",
       },
       "devDependencies": {
         "tmp": "0.2.7",
@@ -305,7 +305,7 @@
 
     "empathic": ["empathic@2.0.1", "", {}, "sha512-YGRs8knHhKHVShLkFET/rWAU8kmHbOV5LwN938RHI0pljAJ1Gf6SzXsSmRaEzcXTtOOmVqJ5+WtQPL5uigY50Q=="],
 
-    "es-pako": ["es-pako@0.0.3", "", {}, "sha512-2Yp62OYVtEA6cm7rCNV83utlZfU3sEheTfYXnGWRga5NtdxiCaCsDtTXdGqSiKcUQFZHWrkTUkJIvvzrAWvxGw=="],
+    "es-pako": ["es-pako@0.1.0", "", {}, "sha512-4ly0DTTbSqD+ghEuw2eNkESJI9hit/ora7MbtUvuKHAiyM00gov2B8jGey64JycaUrvoUh1HeCVU8cZ4//SokA=="],
 
     "fdir": ["fdir@6.5.0", "", { "peerDependencies": { "picomatch": "^3 || ^4" }, "optionalPeers": ["picomatch"] }, "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg=="],
 

@@ -23,7 +23,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "es-pako": "0.0.3"
+    "es-pako": "0.1.0"
   },
   "devDependencies": {
     "tmp": "0.2.7",
