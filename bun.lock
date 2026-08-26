@@ -38,7 +38,7 @@
     },
     "packages/unzipper": {
       "name": "@excel.js/unzipper",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "devDependencies": {
         "iconv-lite": "0.7.3",
         "nano-stream-buffers": "0.1.0",
