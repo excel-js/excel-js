@@ -1,10 +1,10 @@
 var fs = require("fs");
-var async = require("async");
 var path = require("path");
 var util = require("../archiver-utils/index.js");
 
 var inherits = require("util").inherits;
 var ArchiverError = require("./error");
+var Queue = require("../queue/index.js").Queue;
 var Transform = require("node:stream").Transform;
 
 var win32 = process.platform === "win32";
@@ -41,10 +41,10 @@ var Archiver = function (format, options) {
   this._fsEntriesTotalBytes = 0;
   this._fsEntriesProcessedBytes = 0;
 
-  this._queue = async.queue(this._onQueueTask.bind(this), 1);
+  this._queue = new Queue(this._onQueueTask.bind(this), 1);
   this._queue.drain(this._onQueueDrain.bind(this));
 
-  this._statQueue = async.queue(
+  this._statQueue = new Queue(
     this._onStatQueueTask.bind(this),
     options.statConcurrency,
   );
