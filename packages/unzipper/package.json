@@ -22,10 +22,6 @@
     "test": "node --test",
     "prepublishOnly": "bun run build"
   },
-  "dependencies": {
-    "buffers": "0.1.1",
-    "chainsaw": "0.1.0"
-  },
   "devDependencies": {
     "iconv-lite": "0.7.3",
     "nano-stream-buffers": "0.1.0",

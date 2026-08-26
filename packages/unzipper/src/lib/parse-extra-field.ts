@@ -1,4 +1,4 @@
-import binary from "./binary";
+import * as binary from "./binary";
 
 function parseExtraField(extraField, vars) {
   let extra;
