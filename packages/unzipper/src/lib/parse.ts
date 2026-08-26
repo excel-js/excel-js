@@ -1,7 +1,7 @@
 import { PassThrough } from "node:stream";
 import zlib from "node:zlib";
 
-import binary from "./binary";
+import * as binary from "./binary";
 import BufferStream from "./buffer-stream";
 import NoopStream from "./noop-stream";
 import { parseDateTime } from "./parse-date-time";
