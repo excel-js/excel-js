@@ -22,7 +22,6 @@
     "prepublishOnly": "bun run build"
   },
   "devDependencies": {
-    "async": "^3.2.4",
     "buffer-crc32": "^0.2.13",
     "crc-32": "^1.2.0",
     "graceful-fs": "^4.2.0",
@@ -34,7 +33,6 @@
     "node": ">=18"
   },
   "inlinedDependencies": {
-    "async": "3.2.6",
     "buffer-crc32": "0.2.13",
     "crc-32": "1.2.2",
     "graceful-fs": "4.2.11",
