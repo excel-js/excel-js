@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "tmp": "0.2.7",
-    "tsdown": "0.23.3"
+    "tsdown": "0.23.4"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
