@@ -23,7 +23,7 @@
   "devDependencies": {
     "buffer-crc32": "0.2.13",
     "crc-32": "1.2.2",
-    "graceful-fs": "4.2.11",
+    "graceful-fs": "4.2.12",
     "lodash.defaults": "4.2.0",
     "normalize-path": "3.0.0",
     "tsdown": "0.23.4"
